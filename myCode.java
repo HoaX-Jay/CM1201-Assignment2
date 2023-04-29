@@ -9,7 +9,20 @@ public class myCode {
     ArrayList<String> nonSWList = deleteStopWords("input.txt","stopwords.txt");
     //System.out.println(nonSWList);
     ArrayList<String> insertionSortedList = insertionSort(nonSWList);
-    System.out.println(insertionSortedList);
+    //System.out.println(insertionSortedList);
+
+
+
+
+    ArrayList<String> mergeSortedList = new ArrayList<>();
+    mergeSortedList.addAll(nonSWList);
+    mergeSort(mergeSortedList);
+
+    System.out.println("            WAGWAN          ");
+
+    System.out.println(mergeSortedList);
+
+    System.out.println("            MEGONE          ");
   }
 
   public static ArrayList<String> deleteStopWords(String inputFile, String stopWordsFile) throws IOException{
@@ -74,17 +87,48 @@ public class myCode {
   //   {divide left and right into two more subsets }
   //   {repeat above until you have many two element lists}
   //   {merge together left and right subsets}
-  public static ArrayList<String> mergeSort(ArrayList<String> nonSWList){
-    ArrayList<String> mergeSortedList = new ArrayList<>();
-    mergeSortedList.addAll(nonSWList);
-    //catches out lists with one or no elements
-    if(mergeSortedList.size() <= 1){
-      return mergeSortedList;
+  public static void mergeSort(ArrayList<String> mergeSorted) {
+    if(mergeSorted.size()>1){
+      int middle = mergeSorted.size()/2;
+      ArrayList<String> leftList = new ArrayList<>(mergeSorted.subList(0,middle));
+      ArrayList<String> rightList = new ArrayList<>(mergeSorted.subList(middle, mergeSorted.size()));
+
+      mergeSort(leftList);
+      mergeSort(rightList);
+
+      int i = 0, j = 0, k = 0;
+      while(i < leftList.size() && j < rightList.size()){
+        if (leftList.get(i).compareTo(rightList.get(j))<0) {
+          mergeSorted.set(k,leftList.get(i));
+          i++;
+
+        }else{
+          mergeSorted.set(k,rightList.get(j));
+          j++;
+        }
+        k++;
+      }
+      while(i < leftList.size()){
+        mergeSorted.set(k,leftList.get(i));
+      }
+      while(j < rightList.size()){
+        mergeSorted.set(k,rightList.get(j));
+        j++;
+        k++;
+      }
+
+      // System.out.println(leftList);
+      // System.out.println(rightList);
+
+
     }
-
-
-
-    return mergeSortedList;
   }
+
+
+
+
+
+
+
 
 }
