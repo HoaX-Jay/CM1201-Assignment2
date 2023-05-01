@@ -2,18 +2,12 @@ import java.util.*;
 import java.io.*;
 import java.text.*;
 
-
-
-
 public class myCode {
   // initialise variable for use in merge sort
   public static int movesVar = 0;
-
-
   public static void main (String[] args) throws IOException{
     ArrayList<String> nonSWList = deleteStopWords("input.txt","stopwords.txt");
     insertionSort(nonSWList);
-
     System.out.println("MERGE SORTED LIST");
     System.out.println("=====================");
     // ArrayList<String> mergeSortedList = new ArrayList<>();
@@ -26,20 +20,13 @@ public class myCode {
       long mergeStop = System.nanoTime();
       double mergeTime = mergeStop - mergeStart ;
       mergeTime = mergeTime / 1000000000;//seconds
+      //creates formart for decimal numbers so that they do now represent as 1.2345E4
       DecimalFormat df = new DecimalFormat("#.###############");
       System.out.println("Time taken for " + size + " words : " + (df.format(mergeTime)) + "s" );
     }
-
-
-
     //mergeSortedList = mergeSort(mergeSortedList);
     System.out.println("Moves : " + movesVar);
     System.out.println("=====================");
-
-
-
-
-
   }
 
   public static ArrayList<String> deleteStopWords(String inputFile, String stopWordsFile) throws IOException{
@@ -51,7 +38,6 @@ public class myCode {
       SWList.add(line);
     }
     swReader.close();
-
 //reads input file and adds all words to an array in lowercase with punctuation
     ArrayList<String> inputList = new ArrayList<>();
     BufferedReader inputReader = new BufferedReader(new FileReader(inputFile));
@@ -72,7 +58,6 @@ public class myCode {
     }
     return nonSWList;
   }
-
   // insertion sort pseudocode
   // for i =1 (n-1) do
   //   item = A[i]
@@ -86,18 +71,15 @@ public class myCode {
     ArrayList<String> insertionSortedList = new ArrayList<>();
     insertionSortedList.addAll(nonSWList);
     int amount = nonSWList.size();
-
     //intialise variables* for calculating amount of words/ counter
     //500 included in the list as it is required but file without stop words is <500words
     int[] numbers = {100,200,500};
     int numIndex = 0;
     int wordsSorted = 0;
     int moves = 0;
-
     //output with border to make it presentable
     System.out.println("INSERTION SORTED LIST");
     System.out.println("=====================");
-
     // initialises and starts times of insertion sort
     long insertionStart = System.nanoTime();
     //insetion sort algorithm start
@@ -119,8 +101,6 @@ public class myCode {
         insertionTime = insertionTime / 1_000_000_000.0;
         System.out.println("Time taken for " + numbers[numIndex] + " words : " + insertionTime + "s" );
         numIndex++;
-
-
       }
       wordsSorted++;
     }
@@ -128,7 +108,6 @@ public class myCode {
     System.out.println("Moves : " + moves);
     System.out.println("=====================");
   }
-
   // merge sort pseudocode
   // input: two arrays/lists : list1 and list2
   // input: SortedList
@@ -149,11 +128,9 @@ public class myCode {
       //creates two ArrayLists that contain the left and right part of input list
       ArrayList<String> leftList = new ArrayList<>(mergeSorted.subList(0,middle));
       ArrayList<String> rightList = new ArrayList<>(mergeSorted.subList(middle, mergeSorted.size()));
-
       //recursively call mergeSort on both sides
       mergeSort(leftList);
       mergeSort(rightList);
-
       // intialise three counters for merging
       int i = 0, j = 0, k = 0 ;
       // merging algorithm
@@ -187,5 +164,4 @@ public class myCode {
       }
     }
   }
-
 }
